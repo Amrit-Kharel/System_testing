@@ -14,6 +14,7 @@ class TestSensors(unittest.TestCase):
     # with correct inputs (lower limit 18 and higher limit 22) and
     # expects the method to return True, since the limits are
     # correct.
+    
     def test_check_limits1(self):
         limits = [18, 22]
         result = sensors_main.check_limits(limits)
@@ -33,7 +34,20 @@ class TestSensors(unittest.TestCase):
     ##########################
     # Integration test cases #
     ##########################
+    
+    def test_system_main(self):
+        sys.argv = ['sensors_main.py', '17', '17']
+        expected_output = "Error: Incorrect command line arguments.\n"
+        
+        sys.stdout = StringIO()
+        
+        sensors_main.main()
+        output = sys.stdout.getvalue()
 
+        sys.stdout = sys._stdout_
+
+        self.assertEqual(output, expected_output)
+        
     # TODO: Complete test case test_check_limits_integration1 code so
     # that tests the check_limits function from main function.
 
